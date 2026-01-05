@@ -9,4 +9,7 @@ memberRouter.get('/', MemberController.getAll)
 // POST crear nueva jugadora
 memberRouter.post('/', MemberController.create)
 
+// eliminar jugadoras
+memberRouter.delete('/:id', MemberController.deleteById)
+
 export default memberRouter

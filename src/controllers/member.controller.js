@@ -45,6 +45,45 @@ class MemberController {
         }
     }
 
+    static async deleteById (request, response){
+        try{
+            const {id} = request.params
+            const member_delete = await MemberService.deleteById(id)
+            if (!member_delete) {
+                return response.status(404).json({
+                    ok: false,
+                    message: 'Jugadora no encontrada',
+                    status: 404
+                })
+            }
+
+            response.status(200).json({
+                ok: true,
+                status: 200,
+                message: 'Jugadora eliminada exitosamente',
+                data: {
+                    member: member_delete
+                }
+            })
+        }
+        catch(error){
+            if (error.status) {
+                return response.status(error.status).json({
+                    ok: false,
+                    message: error.message,
+                    status: error.status
+                });
+            } else {
+                console.error('ERROR AL CREAR JUGADORA', error);
+                return response.status(500).json({
+                    ok: false,
+                    message: 'Error interno del servidor',
+                    status: 500
+                });
+            }
+        }
+    }
+
 
     static async getAll(request, response) {
         try {

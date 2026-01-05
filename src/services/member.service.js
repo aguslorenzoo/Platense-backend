@@ -20,6 +20,16 @@ class MemberService {
             throw error;
         }
     }
+
+    static async deleteById(member_id){
+        try{
+            return await MemberRepository.deleteById(member_id)
+        }
+        catch(error){
+            console.error('[SERVICE ERROR]: Error al eliminar jugadoras', error)
+            throw error
+        }
+    }
 }
 
 export default MemberService

@@ -20,6 +20,17 @@ class MemberRepository {
             throw error
         }
     }
+    
+    static async deleteById(member_id){
+        try{
+            const member_delete = await Member.findByIdAndDelete(member_id)
+            return member_delete
+        }
+        catch(error){
+            console.error('[REPOSITORY ERROR: No se pudo encontrar la jugadora a eliminar')
+        }
+
+    }
 
 
     static async getAll (category = null) {
@@ -30,7 +41,7 @@ class MemberRepository {
                 filter.category = category;
             }
             
-            return await Member.find(filter).sort({ createdAt: -1 });
+            return await Member.find(filter).sort({ createdAt: -1 })
         } catch (error) {
             console.error('[REPOSITORY ERROR]: No se pudieron obtener las jugadoras.', error);
             throw error;
